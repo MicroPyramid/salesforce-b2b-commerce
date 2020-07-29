@@ -1,0 +1,64 @@
+<apex:page showHeader="false" sidebar="false" docType="html-5.0" standardStylesheets="false" controller="Registercontroller" id="page"> 
+
+<apex:pagemessages ></apex:pagemessages>
+
+<html>
+ <head>
+   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'/>
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"></link>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+     <link type="text/css" href="css/main.css" rel="stylesheet"/>
+    </head>
+  <form class="form-horizontal" method="POST" id="contact_form">
+<script>
+function check(){
+var password__c=document.getElementById('page:form:password__c').value;
+var confirmpassword=document.getElementById('page:form:confirmpassword').value;
+if(password__c != confirmpassword){
+alert('passwords donot match..please check the passwords');
+return false;
+}
+}
+</script>
+
+
+<fieldset>
+<div calss="row">
+ <div class="container">
+ <div class="row product_list_detail no-gutters">
+    <div class="col-md-5 m-auto">
+      <div class="salesforce_login">
+     <h1>Register</h1>
+    <apex:form id="form">
+    <div class="login_form">
+        <p>name</p>
+    <apex:inputField value="{!External_user.name}" styleClass="form-control"/>
+    <p>Username</p>
+    <apex:inputField value="{!External_user.Username__c}" required="true" styleClass="form-control"/>
+    <p>Password</p>
+    <apex:inputSecret value="{!External_user.Password__c}" id="password__c" required="true" styleClass="form-control"/>   
+    
+   <p>Confirm Password</p>
+  
+  <apex:inputSecret label="confirmpassword" id="confirmpassword" required="true" styleClass="form-control"/>
+  
+  <apex:commandButton action="{!submitform}" value="save" id="save" onclick="return check()"/>
+  <!--<div class="register">
+    <a href="">Save</a>
+  </div>-->
+  </div>
+    </apex:form>
+     </div>
+    </div>
+   </div> 
+   </div>    
+</div>
+
+</fieldset>
+</form>
+</html>
+</apex:page>

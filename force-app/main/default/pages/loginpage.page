@@ -1,0 +1,124 @@
+<apex:page controller="loginpage" showHeader="false" sidebar="false" docType="html-5.0" standardStylesheets="false"> 
+<html>
+ <head>
+   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'/>
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"></link>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+    </head>
+  <form class="form-horizontal" method="POST" id="contact_form">
+<fieldset>
+<div calss="row">
+ <div class="container" style="max-width: 1270px;">
+ <style>
+    .salesforce_login{
+         background: #282d31;
+    padding: 60px 20px;
+    margin: 0px auto;
+    margin-top: 4rem;
+    border-radius: 10px;
+   }
+   .salesforce_login h1{
+     font-size: 2.5rem; 
+     color:#fff;
+    width: 100%;
+    text-align: center;
+   }
+   .salesforce_login p{
+    font-size: 0.8rem;
+    line-height: 25px;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 40px;
+   }
+   .login_form p{
+     margin-bottom: 2px;
+      margin-top: 2px;
+       font-size:1rem; 
+       color:#fff;
+       display: block;
+       font-weight: 500;
+       text-align: left!important;
+   }
+   .login_form .form-control{
+    width: 100%;
+    padding: 8px 5px;
+    border-radius: 5px;
+    border-width: 0px;
+    margin-bottom: 10px;
+   }
+   .login_form .forget_password{
+    margin-top: 15px;
+    font-weight: 600;
+    color: #f37339;
+    border: none;
+    background: #292d31;
+    display: inline-block;
+    text-decoration: underline;
+   }
+    .login_form .cmd{
+         width: 25%;
+         border:none;
+    text-align: center;
+    background: #f37339;
+    padding: 6px 0px;
+    color: #fff!important;
+    font-weight: 600;
+    font-size: 1rem;
+    float: right;
+    margin-top: 10px;
+      }
+      .register{
+         border:2px solid #fff;
+    text-align: center;
+    background: #fff;
+    padding: 3px 10px;
+    color: #f37339!important;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-left:100px;
+    margin-top: 25px;
+      }
+      .user_login{
+        margin-top: 10px;
+        margin-bottom: 15px;
+      }
+ </style>
+ <div class="row product_list_detail no-gutters">
+    <div class="col-md-5 m-auto">
+      <div class="salesforce_login">
+     <h1>Login</h1>
+     <p>TO GET ACCESS TO YOUR ORDERS
+    AND QUICK CHECKOUT
+    </p>
+    <apex:form >
+    <apex:pageMessages ></apex:pageMessages>
+    <div class="login_form">
+    <p>UserName</p>
+    <!--<input type="text"  value="{!username}"  class="form-control"></input>-->
+    <apex:inputtext value="{!username}" styleClass="form-control"/>
+   <p>Password</p>
+  <!--<input type="Password"  value="{!password}" class="form-control"></input>-->
+      <apex:inputSecret value="{!password}" styleClass="form-control"/>
+
+<apex:commandButton action="{!forgotpassword}" value="forgotpassword" id="forgotpassword" styleClass="forget_password"/>
+    <apex:commandButton styleClass="cmd" action="{!usrlogin}" value="Login" id="Login" />
+    <div class="col-md-12 text-center">
+    <apex:commandButton action="{!Register}" value="Register" id="Register" styleClass="register"/>
+    </div>
+    
+  </div>
+    </apex:form>
+     </div>
+    </div>
+   </div> 
+   </div>    
+</div>
+
+</fieldset>
+</form>
+</html>
+</apex:page>

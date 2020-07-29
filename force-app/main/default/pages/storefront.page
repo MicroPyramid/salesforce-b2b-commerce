@@ -1,0 +1,447 @@
+<apex:page showHeader="false" sidebar="false" docType="html-5.0"  standardStylesheets="false" lightningStylesheets="true" standardController="Order__c" extensions="StoreExtension">
+<apex:form ><apex:slds />
+    
+<apex:stylesheet value="{!$Resource.Frontend}"/>
+  <html>
+    <head>
+ 
+<script>
+
+var counter = {!theOrder.Quantity__c}
+function add() {
+    console.log(counter)
+    return counter += {!theOrder.Quantity__c}+1;
+};
+function sub() {
+    console.log(counter)
+    return counter -= (1-{!theOrder.Quantity__c});
+};
+
+function addFunction(){
+    var val = add();
+    console.log(val);
+    $("#cartcount").html(val);
+}
+function subFunction(){
+    var val = sub();
+    console.log(val);
+    $("#cartcount").html(val);
+}
+</script>
+      <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+      </link>
+      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+      </link>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+     <link type="text/css" href="css/main.css" rel="stylesheet"/>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+                <script>
+                    $.noConflict();
+                    jQuery(document).ready(function() {
+                        jQuery.extend(jQuery.expr[":"], {
+                            "containsIN": function(elem, i, match, array) {
+                                return (elem.textContent || elem.innerText || "").toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+                            }
+                        });
+
+                        jQuery(document).on("keyup", ".searchbynameautsearch", function() {
+                            jQuery('.listitem').each(function() {
+                                jQuery(this).css("display", ".listitem");
+                            })
+
+                            var searchterm = jQuery(this).val();
+
+                            if (searchterm.length > 0) {
+                                var lmatch = jQuery('.listitem').text();
+
+                                var match = jQuery('.listitem:containsIN("' + searchterm + '")');
+
+                                var nomatch = jQuery('.listitem:not(:containsIN("' + searchterm + '"))');
+
+                                match.addClass('selected');
+
+                                nomatch.css("display", "none");
+
+                            } else {
+
+                                jQuery('.listitem').css("display", "");
+
+                                jQuery('.listitem').removeClass('selected');
+
+                            }
+
+                        });
+
+                    });
+                </script>
+    </head>
+    <body>
+        <div class="row product_list no-gutters">
+          <div class="wrapper">
+            <!-- nav starts here -->
+           <div class="salesforce_menu">
+            <nav class="navbar navbar-expand-lg navbar-light" style="display: flex">
+            <a class="navbar-brand slds-text-body_regular" href="#">Micro<br>Commerce</br></a>
+            <button class="navbar-toggler slds-text-body_regular" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon "></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+ <apex:commandLink styleClass="nav-link disabled slds-text-body_regular" action="https://gvrtechnologies-dev-ed--c.ap4.visual.force.com/apex/ordersfront"> My Orders</apex:commandLink>                  </li>
+                  <li class="nav-item">
+                    <apex:commandLink styleClass="nav-link disabled slds-text-body_regular" action="https://gvrtechnologies-dev-ed--c.ap4.visual.force.com/apex/invoicelistfront"> Invoice</apex:commandLink>
+                  </li>
+                </ul>
+              </div>
+              <div class="">
+                <apex:inputText value="{!recnamesearch}" styleClass="searchbynameautsearch serchfld slds-input" style="width: 500px;     height: 40px;" html-placeholder="Search"/>
+              </div>
+              <div class="profile_cart float-right">
+                  <div class="profile_settings">
+                   <div class="nav-item category_dropdown">
+                   <div class="dropdown">
+                      <button class="dropbtn">
+                        <a href="#"><apex:commandLink action="{!gotoaddcart}"><i class="fas fa-shopping-cart"></i></apex:commandLink></a>
+                          <span class="hover_count"><p id="cartcount"><apex:outputText value="{0, number, ###,###,###,##0}"><apex:param value="{!theOrder.toatal_Quantity__c}" /></apex:outputText></p></span>
+                      </button>
+                        <div class="dropdown-content">
+                          <div class="row">
+                           <div class="col-md-12">
+                           <apex:outputPanel id="toggle">
+                              <apex:commandLink value="{!toggleLink}" action="{!toggleShowCart}" rerender="toggle, cart"/>
+                          </apex:outputPanel>
+                          <apex:outputPanel id="cart">
+                              <c:Cart rendered="{!showCart}" theOrder="{!theOrder}"></c:Cart>
+                          </apex:outputPanel>
+        
+          
+                            
+                            <div class="row product_cart">
+                              <div class="col-lg-9">
+                        <!--    <p>Jack and Jones Men Blue Printed Round Neck T-shirt</p>-->
+                            <!--<p>Quantity <span>2</span></p>-->
+                            </div>
+                            <div class="col-lg-3">
+                             <!-- <span>999.00</span>-->
+                            </div>
+                            <div class="col-lg-7">
+                          <!--  <p>Jack and Jones Men Blue Printed Round Neck T-shirt</p>
+                            <p>Quantity <span>2</span></p>-->
+                            <p class="slds-text-body_regular">Total</p></div><span class="col-lg-2">
+                                <apex:outputField value="{!theOrder.Total__c}"  id="total"/>
+                               </span>
+                            <apex:outputPanel layout="block" id="checkout-cart">
+              <apex:commandButton value="Buy" action="{!gotoaddcart}" style="padding: 4px 15px !important;
+    background: #fe763a;cursor:pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #f37339;
+    margin-left: 180px;
+    border-radius: 4px;
+    color: #fff !important;
+    font-weight: 600 !important;"/>
+          </apex:outputPanel>
+          <div class="cart-status">
+            <apex:actionStatus styleClass="cart-status" id="cart-status" startText="Working..." stopText=""/>
+          </div>
+                            
+                           </div>
+                           </div>
+                         </div>
+                       </div>
+                    </div>
+                  </div>
+                    <div class="dropdown">
+                    <button class="profile_dropdown dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     <span class="user_profile">
+                   <!-- <img src="https://wallpaperbrowse.com/media/images/3848765-wallpaper-images-download.jpg"/>-->
+                   <c:profile />
+                    </span>
+                    </button>
+                    <div class="dropdown-menu slds-text-body_regular" aria-labelledby="dropdownMenuButton">
+                      <button class="dropdown-item slds-text-body_regular"><apex:commandLink action="/_ui/core/userprofile/UserProfilePage" style="color:blue;text-decoration:none;"> Profile</apex:commandLink></button>
+                      <button class="dropdown-item slds-text-body_regular"><apex:commandLink action="/ui/setup/Setup?setupid=PersonalSetup" style="color:blue;text-decoration:none;"> Settings</apex:commandLink></button>
+                      <button class="dropdown-item slds-text-body_regular"><apex:commandLink action="/secur/logout.jsp/retUrl=https://gvrtechnologies-dev-ed--c.ap4.visual.force.com/apex/loginpage" style="color:blue;text-decoration:none;" > Logout</apex:commandLink></button>
+                    </div> 
+                  </div>
+              </div>
+              </div>
+            </nav>
+          </div>
+            <!-- nav ends here -->
+            <div calss="row">
+              <div class=" main_container">
+                <div class="product_view">
+                          <div class="container">
+                        <div class="row customer_product">
+                           <div class="col-lg-3 col-md-3">
+                    <div class="row marl category_wise_view">
+                       <div class="col-lg-12 col-md-12 col-12">
+                        <p>CATEGORIES</p>
+                            <ul>
+                              <li><input type="checkbox" class="form-check-input" id="exampleCheck1" style="left: 0px;
+    margin: 5px" />Clothing</li>
+                              <li><input type="checkbox" class="form-check-input" id="exampleCheck1" style="left: 0px;
+    margin: 5px"/>Furniture</li>
+                              <li><input type="checkbox" class="form-check-input" id="exampleCheck1" style="left: 0px;
+    margin: 5px"/>Electronics</li>
+                              <li><input type="checkbox" class="form-check-input" id="exampleCheck1" style="left: 0px;
+    margin: 5px"/>Clothing</li>
+                              <li><input type="checkbox" class="form-check-input" id="exampleCheck1" style="left: 0px;
+    margin: 5px"/>Furniture</li>
+                              <li><input type="checkbox" class="form-check-input" id="exampleCheck1" style="left: 0px;
+    margin: 5px"/>Electronics</li>
+                            </ul>
+                          </div>
+                    </div>
+                    <div class="row marl price_wise_view">
+                       <div class="col-lg-12 col-md-12 col-12">
+                        <p>PRICES</p>
+                            <ul>
+                              <li><input type="checkbox" class="form-check-input" id="exampleCheck1" style="left: 0px;
+    margin: 5px"/>below  3000</li>
+                              <li><input type="checkbox" class="form-check-input" id="exampleCheck1" style="left: 0px;
+    margin: 5px"/>3000 - 6000</li>
+                              <li><input type="checkbox" class="form-check-input" id="exampleCheck1" style="left: 0px;
+    margin: 5px"/>6000 - 15000</li>
+                              <li><input type="checkbox" class="form-check-input" id="exampleCheck1" style="left: 0px;
+    margin: 5px"/>15000 - 20000</li>
+                              <li><input type="checkbox" class="form-check-input" id="exampleCheck1" style="left: 0px;
+    margin: 5px"/>20000 - 25000</li>
+                              <li><input type="checkbox" class="form-check-input" id="exampleCheck1" style="left: 0px;
+    margin: 5px"/>25000  Above</li>
+                            </ul>
+                          </div>
+                    </div>
+                </div>
+                  <div class="col-lg-9 col-md-9">
+                    <div class="row product_list_detail no-gutters">
+                       <div class="col-md-12">
+                        <div class="row_marl">
+                          <ul class="products">
+                              
+                               
+
+                                  
+                            <apex:outputPanel id="items" styleClass="items"  >
+                          <apex:repeat var="item" value="{!items}">
+                              
+                           <li class="listitem" style="width: 33.3%;">
+                              <div class="img-wrap">
+                           <!--    <img src="https://wallpaperbrowse.com/media/images/3848765-wallpaper-images-download.jpg"></img>-->
+                            <apex:outputField value="{!item.pic__c}"/>
+                              </div><apex:outputPanel >
+                              <h4 class="slds-text-body_regular"><div >{!item.Name}</div>
+                              </h4>
+                              <span class="price slds-text-body_regular"><div >
+                            <apex:outputField value="{!item.Price__c}"/>
+        
+                        </div> </span>
+                              <div class="add_to_cart">
+                                <div class="extend_cart">
+                               
+                                 <apex:commandButton value="Add To Cart" style="font-size: 0.8rem;
+    padding: 0px 10px !important;
+    background: #fe763a;
+    cursor: pointer;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    border: 1px solid #f37339;
+    border-radius: 6px;
+    color: #fff !important;
+    font-weight: 600 !important" action="{!addToCart}"  styleClass="slds-button slds-button_brand" id="first-button"  reRender="cart, total"  status="cart-status"  onclick="addFunction()"  >
+                                <apex:param name="itemId" value="{!item.id}" />
+                            </apex:commandButton>
+
+    <apex:commandButton value="Remove From Cart" styleClass="slds-button slds-button_brand" id="second-button"  style="font-size: 0.8rem;
+    padding: 0px 10px !important;
+    background: #fe763a;
+    cursor: pointer;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    border: 1px solid #f37339;
+    border-radius: 6px;
+    color: #fff !important;
+    font-weight: 600 !important" action="{!removefromCart}"   reRender="cart, total" status="cart-status" onclick="subFunction()"  >
+                                <apex:param name="itemId"  value="{!item.id}" />
+                            </apex:commandButton>
+
+                                
+                                
+                                
+                               </div>
+                                
+                              </div>
+                              </apex:outputPanel>
+                            </li> </apex:repeat>
+              
+          </apex:outputPanel>
+                                    <!-- <li>
+                              <div class="img-wrap">
+                                <img src="https://wallpaperbrowse.com/media/images/3848765-wallpaper-images-download.jpg"></img>
+                              </div>
+                              <h4>Adi-sport</h4>
+                              <span class="price"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>69.00</span></span>
+                              <div class="add_to_cart">
+                              <div class="extend_cart"><button><i class="fas fa-minus"></i></button> 81<button><i class="fas fa-plus"></i></button></div>  
+                                <a href=""> Add to cart</a>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="img-wrap">
+                                <img src="https://wallpaperbrowse.com/media/images/BMW-4-series-gran-coupe-images-and-videos-1920x1200-04.jpg.asset.1487328216285.jpg"></img>
+                              </div>
+                              <h4>Adi-sport</h4>
+                              <span class="price"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>69.00</span></span>
+                              <div class="add_to_cart">
+                                <div class="extend_cart"><button><i class="fas fa-minus"></i></button> 2<button><i class="fas fa-plus"></i></button></div>
+                                <a href=""> Add to cart</a>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="img-wrap">
+                                <img src="https://wallpaperbrowse.com/media/images/BMW-4-series-gran-coupe-images-and-videos-1920x1200-04.jpg.asset.1487328216285.jpg"></img>
+                              </div>
+                              <h4>Adi-sport</h4>
+                              <span class="price"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>69.00</span></span>
+                              <div class="add_to_cart">
+                                <div class="extend_cart"><button><i class="fas fa-minus"></i></button> 3<button><i class="fas fa-plus"></i></button></div>
+                                <a href=""> Add to cart</a>
+                              </div>
+                            </li>
+                          </ul>
+                          <ul class="products">
+                            <li>
+                              <div class="img-wrap">
+                                <img src="https://wallpaperbrowse.com/media/images/BMW-4-series-gran-coupe-images-and-videos-1920x1200-04.jpg.asset.1487328216285.jpg"></img>
+                              </div>
+                              <h4>Adi-sport</h4>
+                              <span class="price"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>69.00</span></span>
+                              <div class="add_to_cart">
+                                <div class="extend_cart"><button><i class="fas fa-minus"></i></button> 9<button><i class="fas fa-plus"></i></button></div>
+                                <a href=""> Add to cart</a>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="img-wrap">
+                                <img src="https://wallpaperbrowse.com/media/images/BMW-4-series-gran-coupe-images-and-videos-1920x1200-04.jpg.asset.1487328216285.jpg"></img>
+                              </div>
+                              <h4>Adi-sport</h4>
+                              <span class="price"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>69.00</span></span>
+                              <div class="add_to_cart">
+                                <div class="extend_cart"><button><i class="fas fa-minus"></i></button> 2<button><i class="fas fa-plus"></i></button></div>
+                                <a href=""> Add to cart</a>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="img-wrap">
+                                <img src="https://wallpaperbrowse.com/media/images/BMW-4-series-gran-coupe-images-and-videos-1920x1200-04.jpg.asset.1487328216285.jpg"></img>
+                              </div>
+                              <h4>Adi-sport</h4>
+                              <span class="price"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>69.00</span></span>
+                              <div class="add_to_cart">
+                                <div class="extend_cart"><button><i class="fas fa-minus"></i></button> 0<button><i class="fas fa-plus"></i></button></div>
+                                <a href=""> Add to cart</a>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="img-wrap">
+                                <img src="https://wallpaperbrowse.com/media/images/3848765-wallpaper-images-download.jpg"></img>
+                              </div>
+                              <h4>Adi-sport</h4>
+                              <span class="price"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>69.00</span></span>
+                              <div class="add_to_cart">
+                                <div class="extend_cart"><button><i class="fas fa-minus"></i></button> 2<button><i class="fas fa-plus"></i></button></div>
+                                <a href=""> Add to cart</a>
+                              </div>
+                            </li>-->
+                          </ul>
+                          <!-- <ul class="products">
+                            <li>
+                              <div class="img-wrap">
+                                <img src="https://wallpaperbrowse.com/media/images/BMW-4-series-gran-coupe-images-and-videos-1920x1200-04.jpg.asset.1487328216285.jpg"></img>
+                              </div>
+                              <h4>Adi-sport</h4>
+                              <span class="price"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>69.00</span></span>
+                              <div class="add_to_cart">
+                                <div class="extend_cart"><button><i class="fas fa-minus"></i></button> 3<button><i class="fas fa-plus"></i></button></div>
+                                <a href=""> Add to cart</a>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="img-wrap">
+                                <img src="https://wallpaperbrowse.com/media/images/BMW-4-series-gran-coupe-images-and-videos-1920x1200-04.jpg.asset.1487328216285.jpg"></img>
+                              </div>
+                              <h4>Adi-sport</h4>
+                              <span class="price"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>69.00</span></span>
+                              <div class="add_to_cart">
+                                <div class="extend_cart"><button><i class="fas fa-minus"></i></button> 2<button><i class="fas fa-plus"></i></button></div>
+                                <a href=""> Add to cart</a>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="img-wrap">
+                                <img src="https://wallpaperbrowse.com/media/images/BMW-4-series-gran-coupe-images-and-videos-1920x1200-04.jpg.asset.1487328216285.jpg"></img>
+                              </div>
+                              <h4>Adi-sport</h4>
+                              <span class="price"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>69.00</span></span>
+                              <div class="add_to_cart">
+                                <div class="extend_cart"><button><i class="fas fa-minus"></i></button> 1<button><i class="fas fa-plus"></i></button></div>
+                                <a href=""> Add to cart</a>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="img-wrap">
+                                <img src="https://wallpaperbrowse.com/media/images/3848765-wallpaper-images-download.jpg"></img>
+                              </div>
+                              <h4>Adi-sport</h4>
+                              <span class="price"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>69.00</span></span>
+                              <div class="add_to_cart">
+                                <div class="extend_cart"><button><i class="fas fa-minus"></i></button> 2<button><i class="fas fa-plus"></i></button></div>
+                                <a href=""> Add to cart</a>
+                              </div>
+                            </li>
+                          </ul>-->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script type="text/javascript">
+        $(".multiple").select2({
+    tags: true,
+    tokenSeparators: [',', ' ']
+})/*
+           $(".Category").click(function(){
+        $(".category_wise_view").toggle();
+         $(".price_wise_view").hide();
+    });
+             $(".price_wise_view").hide();
+           $(".price").click(function(){
+        $(".price_wise_view").toggle();
+        $(".category_wise_view").hide();
+    });*/
+   
+    </script>
+
+  </html>
+  </apex:form>
+</apex:page>
