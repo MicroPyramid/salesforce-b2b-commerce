@@ -1,0 +1,77 @@
+<apex:page showHeader="false" sidebar="false" docType="html-5.0" standardStylesheets="false" controller="loginfront"> 
+<apex:form >
+<apex:stylesheet value="{!$Resource.Frontend}"/>
+<html>
+<style>
+.login_form .cmd{
+         width: 25%;
+         border:none;
+    text-align: center;
+    background: #f37339;
+    padding: 6px 0px;
+    color: #fff!important;
+    font-weight: 600;
+    font-size: 1rem;
+    float: right;
+    margin-top: 10px;
+      }
+       .register{
+         border:2px solid #fff;
+    text-align: center;
+    background: #fff;
+    padding: 3px 10px;
+    color: #f37339!important;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-left:100px;
+    margin-top: 25px;
+      }
+      </style>
+ <head>
+   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'/>
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"></link>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+      <link type="text/css" href="css/main.css" rel="stylesheet"/>
+    </head>
+    <div class="customer_login">
+      <div calss="row">
+       <div class="container">
+       <div class="row product_list_detail no-gutters">
+          <div class="col-md-5 m-auto">
+            <div class="salesforce_login">
+               <h1>Login</h1>
+                <div class="login_form">
+                <p>Email</p>
+               <!-- <input type="text" name="" class="form-control"></input>-->
+                <apex:inputtext value="{!username}" styleClass="form-control"/>
+               <p>Password</p>
+             <!-- <input type="Password" name="" class="form-control"></input>-->
+                <apex:inputSecret value="{!password}" styleClass="form-control"/>
+
+              <div class="user_login">
+           <!--   <span>Forgot Password?</span>
+                <a href="dashboard.html" class="login">Login</a>-->
+                <apex:commandLink action="{!forgotpassword}" value="forgot password" id="forgotpassword" styleClass="forget_password"/>
+    <apex:commandButton styleClass="cmd" action="{!usrlogin}" style="margin-left:200px;" value="Login" id="Login" />
+              </div>
+              <!-- <div class="col-md-12 text-center register">
+              <span class="account_register">Don't have an account?<a href="register.html" class="sign_up"> Sign Up!</a></span>
+             </div>-->
+             <div class="col-md-12 text-center">
+             <span class="account_register">Dont have an account?</span>
+    <apex:commandLink action="{!Register}" value="Sign Up!" id="Register" styleClass="register"/>
+    </div>
+           </div>
+           </div>
+          </div>
+         </div> 
+         </div>    
+      </div>
+    </div>
+  </html>
+  </apex:form>
+</apex:page>

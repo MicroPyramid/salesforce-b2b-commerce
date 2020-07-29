@@ -1,0 +1,408 @@
+<apex:page showHeader="false" sidebar="false" docType="html-5.0" lightningStylesheets="true" standardStylesheets="false" lightningStyleSheets="true" standardController="Order_Management__c" extensions="recordcount1">
+<apex:form ><apex:slds />
+  <apex:stylesheet value="{!$Resource.Main}"/>
+   
+  <html>
+    <head>
+
+      <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+      </link>
+      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+      </link>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+      <link type="text/css" href="css/main.css" rel="stylesheet"/>
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    </head>
+    <body>
+      <div class="row product_list_detail no-gutters">
+      <div class="wrapper">
+      <!-- nav starts here -->
+      <nav class="navbar navbar-expand-lg">
+        <div class="product_menu collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav nav_logo">
+            <li class="nav-item logo slds-text-body_regular" style="padding-left: 15px;">
+              MicroCommerce  
+            </li>
+          </ul>
+          <div class="nav_item slds-text-body_regular">
+            <ul class="navbar-nav">
+            </ul>
+          </div>
+          <div class="row add_to-cart text-right">
+            <div class="col">
+              <a href="">
+              <i class="fas fa-shopping-cart"></i>
+              <span class=""></span>
+              </a>
+            </div>
+            <div class="profile_settings">
+              <div class="dropdown">
+                <button class="profile_dropdown dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="user_profile">
+             <!--  <apex:image style="cursor:pointer" url="/profilephoto/005/F" />-->
+              <c:profile />
+               
+            <!--    <img src="https://wallpaperbrowse.com/media/images/3848765-wallpaper-images-download.jpg"></img>-->
+                </span>
+                <span class="user_name slds-text-body_regular"><apex:outputText style="cursor:pointer;" value="{!$User.FirstName&' '&$User.LastName}"></apex:outputText></span>
+                </button>
+                <div class="dropdown-menu slds-text-body_regular" aria-labelledby="dropdownMenuButton">
+                      <button class="dropdown-item" ><apex:commandLink style="color:blue;text-decoration:none;" action="/_ui/core/userprofile/UserProfilePage" > Profile</apex:commandLink></button>
+                      <button class="dropdown-item" ><apex:commandLink style="color:blue;text-decoration:none;" action="/ui/setup/Setup?setupid=PersonalSetup" > Settings</apex:commandLink></button>
+                      <button class="dropdown-item" ><apex:commandLink style="color:blue;text-decoration:none;" action="/secur/logout.jsp" > Logout</apex:commandLink></button>
+                    </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+           <!-- nav ends here -->
+            <div calss="row">
+              <div class="dashboard_list_view">
+                <aside class="left_sidebar">
+                  <div class="dashboard_list"> </div>
+                  <div class="side_menu">
+                    <div class="nav-side-menu">
+                      <div class="menu-list slds-text-body_regular">
+                        <ul id="menu-content" class="menu-content">
+                          <li class="active">
+                            <apex:commandLink action="https://gvrtechnologies-dev-ed--c.ap4.visual.force.com/apex/dashboard">Dashboard
+                            <i class="fas fa-globe"></i>
+                            </apex:commandLink>
+                            <span class="dashboard_count"></span>
+                          </li>
+                          <li>
+                            <apex:commandLink action="https://gvrtechnologies-dev-ed--c.ap4.visual.force.com/apex/userlist">Users
+                            <i class="fas fa-user"></i>
+                            </apex:commandLink>  
+                             <span class="dashboard_count"><apex:outputText value="{!total1}"/></span>
+                          </li>
+                         
+                          <li  data-toggle="show" data-target="#products" class="collapsed">
+                            <a href="#"> Catalogue <i class="fab fa-phabricator"></i> <span class="arrow">
+                            <i class="fas fa-caret-down"></i>
+                            </span></a>
+                          </li>
+                          <ul class="sub-menu show" id="products">
+                            <li><apex:commandLink action="https://gvrtechnologies-dev-ed--c.ap4.visual.force.com/apex/category_list">Category
+                            <i class="fas fa-file-alt"></i>
+                            </apex:commandLink><span class="right_arrow">
+                               <i class="fas fa-chevron-right"></i> 
+                              </span><span class="dashboard_count"><apex:outputText value="{!total2}"/></span> 
+                            </li>
+                            <li class=""><apex:commandLink action="https://gvrtechnologies-dev-ed--c.ap4.visual.force.com/apex/productlist">Products
+                            <i class="fas fa-star yellow"></i>
+                            </apex:commandLink>
+                               <span class="right_arrow">
+                               <i class="fas fa-chevron-right"></i> <span class="dashboard_count"><apex:outputText value="{!total3}"/></span>
+                              </span>
+                            </li>
+                          </ul>
+                           <li>
+                            <apex:commandLink action="https://gvrtechnologies-dev-ed--c.ap4.visual.force.com/apex/customerlist">Customers
+                            <i class="fas fa-user-tag"></i>
+                            </apex:commandLink>
+                             <span class="dashboard_count"><apex:outputText value="{!total}"/></span>
+                          </li>
+                          <li>
+                            <apex:commandLink action="https://gvrtechnologies-dev-ed--c.ap4.visual.force.com/apex/orderlist">Orders
+                            <i class="fas fa-chart-line blue"></i>
+                            </apex:commandLink> <span class="dashboard_count"><apex:outputText value="{!tot}"/></span>
+                          </li>
+                          <li>
+                            <apex:commandLink action="https://gvrtechnologies-dev-ed--c.ap4.visual.force.com/apex/invoicelist">Invoices
+                            <i class="fas fa-dollar-sign red"></i>
+                            </apex:commandLink><span class="dashboard_count"><apex:outputText value="{!invoices}"/></span></li>
+                         
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- menu_container ends here -->
+      </aside>
+      <div class=" main_container">
+        <div class="row menu_dashboard">
+          <div class="col-md-3">
+            <div class="dashboard_list slds-text-body_regular">
+              <h3><apex:commandLink action="https://gvrtechnologies-dev-ed--c.ap4.visual.force.com/apex/customerlist">Customers</apex:commandLink></h3>
+              <div class="d-flex list_count">
+                <div class="">
+                  <i class="fas fa-user"></i>
+                </div>
+                <div class="slds-text-body_regular">
+                  <span><apex:outputText value="{!total}"/></span>
+                </div>
+              </div>
+              <p>From Past 1 Year</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="dashboard_list">
+              <h3><apex:commandLink action="https://gvrtechnologies-dev-ed--c.ap4.visual.force.com/apex/orderlist">Orders</apex:commandLink></h3>
+              <div class="d-flex list_count">
+                <div class="">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="">
+                  <span><apex:outputText value="{!tot}"/></span>
+                </div>
+              </div>
+              <p>From Past 1 Year</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="dashboard_list">
+              <h3><apex:commandLink action="https://gvrtechnologies-dev-ed--c.ap4.visual.force.com/apex/invoicelist">Invoices</apex:commandLink></h3>
+              <div class="d-flex list_count">
+                <div class="">
+                  <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="">
+                  <span><apex:outputText value="{!invoices}"/></span>
+                </div>
+              </div>
+              <p>From Past 1 Year</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="dashboard_list">
+              <h3>Revenue</h3>
+              <div class="d-flex list_count">
+                <div class="">
+                 <i class="fas fa-globe"></i>
+                </div>
+                <div class="">
+                  <span>354456</span>
+                </div>
+              </div>
+              <p>From Past 1 Year</p>
+            </div>
+          </div>
+        </div>
+        <div class="row menu_graphs">
+          <div class="col-md-6" style="font-size: 1rem;">
+            <div id="columnchart_values" style="width:100%; height: 450px;color:#FF7500; font-size:1rem;">
+   <div style=" display:block !important; font-size: 1rem;" type="text/css">
+   <analytics:reportChart reportId="00O6F00000Dbx7p"/><!-- <apex:chart height="350px" width="100%" data="{!months}" >
+     
+ <apex:legend position="right"/>
+
+        <apex:axis type="Numeric" position="left" fields="count" minimum="0" maximum="10" dashSize="2"
+                title="Record Count" />
+        <apex:axis type="Category" position="bottom" fields="yearMonth"
+                title="Year/Month"/>
+        <apex:barSeries orientation="vertical" axis="left"  colorSet="#37241E,#94B3C8,#4D4E24" stacked="true"
+                yField="count" xField="yearMonth"/>
+    </apex:chart>-->
+    </div></div>
+          </div>
+          <div class="col-md-6">
+            <div id="curve_chart" style="width: 100%; height: 350px;color:#FF7500;"> <!--{!months}
+            <apex:chart height="350px" width="100%" data="{!months}" >
+     
+ <apex:legend position="right"/>
+
+        <apex:axis type="Numeric" position="left" fields="count" minimum="0" maximum="10" dashSize="2"
+                title="Record Count" />
+        <apex:axis type="Category" position="bottom" fields="yearMonth"
+                title="Year/Month"/>
+        <apex:lineSeries axis="left" fill="true" xField="yearMonth" yField="count"
+          markerType="cross" markerSize="4" markerFill="#FF0000"/>
+    </apex:chart>-->
+    <analytics:reportChart size="medium" reportId="00O6F00000Dc8If"/></div>
+          </div>
+        </div>
+        
+        <div class="row dashboard_activity">
+          <div class="col-md-6">
+            <div class="Customer_activety">
+           
+            <h4>Customers Activity</h4>
+            <apex:repeat value="{!isr}" var="i" rows="3">
+              <div class="activity_list">
+                <div class="activity_date">
+                 
+                  <span><apex:outputText value="{!i.Order_placed_date__c}"></apex:outputText> <i class="fas fa-check red"></i></span>
+                </div>
+                <div class="active_invoice">
+                 
+                  <h5><a href=""><apex:outputText value="{!i.Order_Placed_By__c}"></apex:outputText></a> Ordered   <a href=""><apex:outputText value="{!i.Product_name__c}"></apex:outputText></a> </h5>
+                  <p><apex:outputText value="{!i.Description__c}"></apex:outputText></p>
+                </div>
+              </div><apex:repeat value="{!lsr}" var="j" rows="1">
+              <div class="activity_list">
+                <div class="activity_date">
+                  <span><apex:outputText value="{!j.CreatedDate}"></apex:outputText> <i class="fas fa-chart-line blue"></i></span>
+                </div>
+                <div class="active_invoice">
+                  <h5><a href="">
+                  <span>{!$User.FirstName}{!$User.LastName}</span><span> Added</span>
+                  <span><apex:outputText value="{!j.Name}"></apex:outputText></span><span> to the Products with a Price of</span>
+                  <span><apex:outputText value="{!j.Price__c}"></apex:outputText></span> of Quantity<span><apex:outputText value="{!j.Quantity__c}"></apex:outputText></span> 
+                  
+                     
+                  </a></h5>
+                  
+                </div>
+              </div></apex:repeat>
+              <apex:repeat value="{!csr}" var="c" >
+              <div class="activity_list">
+                <div class="activity_date">
+                  <span><apex:outputText value="{!c.CreatedDate}"></apex:outputText> <i class="fas fa-star yellow"></i></span>
+                </div>
+                <div class="active_invoice">
+                  <h5><a href="">New Customer
+                  
+                  <span><apex:outputText value="{!c.Name}"></apex:outputText></span><span> Signed up with Mobile Number </span>
+                  <span><apex:outputText value="{!c.Mobile_number__c}"></apex:outputText></span> and Email <span><apex:outputText value="{!c.Email_id__c}"></apex:outputText></span> 
+                  
+                     
+                  </a></h5>
+                  
+                </div>
+              </div></apex:repeat>
+             <!-- <div class="activity_list">
+                <div class="activity_date">
+                  <span>Jun 7 <i class="fas fa-star yellow"></i></span>
+                </div>
+                <div class="active_invoice">
+                
+                  <h5><a href="">Lakshman</a> Added Product To the Cart </h5>
+                  <p></p>
+                </div>
+              </div>
+              <div class="activity_list">
+                <div class="activity_date">
+                  <span>May 3 <i class="fas fa-check red"></i></span>
+                </div>
+                <div class="active_invoice">
+                  <h5><a href="">Vineesha</a> Order Conformed</h5>
+                  <p><strong> By :</strong><a href="">Lakshman</a> </p>
+                </div>
+              </div>--></apex:repeat>
+              <span class="dotted_border"></span>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="dashboard_invoice">
+              <h4>Invoices</h4>
+              <div class="d-block">
+              
+                <apex:pageBlock >
+ <apex:pageBlockTable value="{!usr}" var="usrfun" rowClasses="2">
+ 
+<apex:column value="{!usrfun.Name_of_customer__c}" headerValue=""  />
+ <apex:column value="{!usrfun.ProgressField__c}" headerValue=""  style="color:#f37339;"/>
+ </apex:pageBlockTable>
+ <apex:pageblockButtons location="bottom" >
+ <apex:commandLink action="https://gvrtechnologies-dev-ed--c.ap4.visual.force.com/apex/invoicelist" value="see all" style="color:#f37339;text-decoration:none;margin-left:400px;"/>
+ </apex:pageblockButtons>
+ </apex:pageBlock>
+            <!--    <div class="progress">
+                  <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="00" aria-valuemin="0" aria-valuemax="100" style="width: 1%;">
+                  </div>
+                </div>-->
+              </div>
+              <!--  <div class="d-block">
+                  <p class="font-600">50 suit wear to xyz <span class="pull-right"><b>50%</b></span></p>
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                    </div>
+                  </div>
+                </div>
+                  <div class="d-block">
+                    <p class="font-600">Order of 20 mobiles to LOT store <span class="pull-right"><b>70%</b></span></p>
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 70%;">
+                      </div>
+                    </div>
+                  </div>
+                    <div class="d-block">
+                      <p class="font-600">Kids leather toys to baby store <span class="pull-right"><b>80%</b></span></p>
+                      <div class="progress">
+                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="69" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
+                        </div>
+                      </div>
+                    </div>-->
+                  </div>
+</div>
+</div>
+               </div>
+
+       </div>
+</div>
+</div>
+</div>
+
+    </body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+ <!--    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      
+      function drawChart() {
+       var data = google.visualization.arrayToDataTable([
+         ['Year', 'Sales'],
+         ['Week1',  200],
+         ['Week2',  460],
+         ['Week3',  120],
+         ['Week4',   840]
+       ]);
+      
+       var options = {
+         title: 'Revenue',
+         curveType: 'function',
+         legend: { position: 'bottom' }
+       };
+      
+       var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+      
+       chart.draw(data, options);
+      }
+    </script>-->
+   <!-- <script type="text/javascript">
+      google.charts.load("current", {packages:['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ["Element", "Density", { role: "style" } ],
+          ["Week1", 8.94, "#b87333"],
+          ["Week2", 10.49, "silver"],
+          ["Week3", 19.30, "gold"],
+          ["Week4", 21.45, "color: #e5e4e2"]
+        ]);
+      
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0, 1,
+                         { calc: "stringify",
+                           sourceColumn: 1,
+                           type: "string",
+                           role: "annotation" },
+                         2]);
+      
+        var options = {
+          title: "Orders",
+          bar: {groupWidth: "20%"},
+          legend: { position: "none" },
+        };
+        var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+        chart.draw(view, options);
+      }
+    </script>-->
+  
+       
+
+<!-- the rest of your page goes here -->
+
+  </html>
+  
+ 
+  </apex:form>
+  
+</apex:page>

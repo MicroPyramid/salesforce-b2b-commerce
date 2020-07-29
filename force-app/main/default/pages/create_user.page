@@ -1,0 +1,254 @@
+<apex:page showHeader="false" lightningStylesheets="true" sidebar="false" docType="html-5.0" standardStylesheets="false" controller="usercreation">
+ <apex:form ><apex:slds />
+   <apex:stylesheet value="{!$Resource.Main}"/>
+   <apex:pageMessages ></apex:pageMessages>
+  <html>
+    <head> 
+    <script type="text/javascript">
+     
+    function redirectpage(){
+    window.top.location.href = 'https://gvrtechnologies-dev-ed--c.ap4.visual.force.com/apex/userlist';
+    }
+</script>
+      <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+      </link>
+      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+      </link>
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+         <link type="text/css" href="css/main.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <div class="row product_list_detail no-gutters">
+          <div class="wrapper">
+            <!-- nav starts here -->
+            <nav class="navbar navbar-expand-lg">
+              <div class="product_menu collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav nav_logo">
+                  <li class="nav-item logo">
+                    Salesforce  
+                  </li>
+                  <span><i class="fas fa-bars"></i></span>
+                </ul>
+                <div class="nav_item">
+                  <ul class="navbar-nav">
+                  </ul>
+                </div>
+                <div class="row add_to-cart text-right">
+                  <div class="col">
+                    <a href="">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class=""></span>
+                    </a>
+                  </div>
+                  <div class="profile_settings">
+              <div class="dropdown">
+                <button class="profile_dropdown dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="user_profile">
+            <!--    <apex:image style="cursor:pointer;" url="/profilephoto/005/F"/>-->
+            <c:profile />
+            <!--    <img src="https://wallpaperbrowse.com/media/images/3848765-wallpaper-images-download.jpg"></img>-->
+                </span>
+                <span class="user_name"><apex:outputText style="cursor:pointer;" value="{!$User.FirstName&' '&$User.LastName}"></apex:outputText></span>
+                </button>
+                
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <button class="dropdown-item" ><apex:commandLink action="/_ui/core/userprofile/UserProfilePage" style="color:blue;text-decoration:none;"> Profile</apex:commandLink></button>
+                      <button class="dropdown-item" ><apex:commandLink action="/ui/setup/Setup?setupid=PersonalSetup" style="color:blue;text-decoration:none;"> Settings</apex:commandLink></button>
+                      <button class="dropdown-item" ><apex:commandLink action="/secur/logout.jsp" style="color:blue;text-decoration:none;"> Logout</apex:commandLink></button>
+                    </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+            </nav>
+                 <!-- nav ends here -->
+                                         
+
+             <div calss="row">
+              <div class="dashboard_list_view">
+                <aside class="left_sidebar">
+                  <div class="dashboard_list"> </div>
+                  <div class="side_menu">
+                    <div class="nav-side-menu">
+                      <div class="menu-list">
+                        <ul id="menu-content" class="menu-content">
+                          <li >
+                            <apex:commandLink immediate="true" html-formnovalidate="formnovalidate" action="https://gvrtechnologies-dev-ed--c.ap4.visual.force.com/apex/dashboard">Dashboard
+                            <i class="fas fa-globe"></i>
+                            </apex:commandLink>
+                            <span class="dashboard_count"></span>
+                          </li>
+                          <li class="active">
+                            <apex:commandLink immediate="true" html-formnovalidate="formnovalidate" action="https://gvrtechnologies-dev-ed--c.ap4.visual.force.com/apex/userlist">Users
+                            <i class="fas fa-user"></i>
+                            </apex:commandLink>  
+                             <span class="dashboard_count"><apex:outputText value="{!total1}"/></span>
+                          </li>
+                         
+                          <li  data-toggle="show" data-target="#products" class="collapsed">
+                            <a href="#"> Catalogue <i class="fab fa-phabricator"></i> <span class="arrow">
+                            <i class="fas fa-caret-down"></i>
+                            </span></a>
+                          </li>
+                          <ul class="sub-menu show" id="products">
+                            <li><apex:commandLink immediate="true" html-formnovalidate="formnovalidate" action="https://gvrtechnologies-dev-ed--c.ap4.visual.force.com/apex/category_list">Category
+                            <i class="fas fa-file-alt"></i>
+                            </apex:commandLink><span class="right_arrow">
+                               <i class="fas fa-chevron-right"></i> 
+                              </span><span class="dashboard_count"><apex:outputText value="{!total2}"/></span> 
+                            </li>
+                            <li class=""><apex:commandLink immediate="true" html-formnovalidate="formnovalidate" action="https://gvrtechnologies-dev-ed--c.ap4.visual.force.com/apex/productlist">Products
+                            <i class="fas fa-star yellow"></i>
+                            </apex:commandLink>
+                               <span class="right_arrow">
+                               <i class="fas fa-chevron-right"></i> <span class="dashboard_count"><apex:outputText value="{!total3}"/></span>
+                              </span>
+                            </li>
+                          </ul>
+                           <li>
+                            <apex:commandLink immediate="true" html-formnovalidate="formnovalidate" action="https://gvrtechnologies-dev-ed--c.ap4.visual.force.com/apex/customerlist">Customers
+                            <i class="fas fa-user-tag"></i>
+                            </apex:commandLink>
+                             <span class="dashboard_count"><apex:outputText value="{!total}"/></span>
+                          </li>
+                          <li>
+                            <apex:commandLink immediate="true" html-formnovalidate="formnovalidate" action="https://gvrtechnologies-dev-ed--c.ap4.visual.force.com/apex/orderlist">Orders
+                            <i class="fas fa-chart-line blue"></i>
+                            </apex:commandLink> <span class="dashboard_count"><apex:outputText value="{!tot}"/></span>
+                          </li>
+                          <li>
+                            <apex:commandLink immediate="true" html-formnovalidate="formnovalidate" action="https://gvrtechnologies-dev-ed--c.ap4.visual.force.com/apex/invoicelist">Invoices
+                            <i class="fas fa-dollar-sign red"></i>
+                            </apex:commandLink><span class="dashboard_count"><apex:outputText value="{!invoices}"/></span></li>
+                         
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                         <!-- menu_container ends here -->
+                </aside>
+                <div class=" main_container">
+                  <div class="users_create">
+                    <div class="row nav nav-tabs">
+                      <div class="col-md-12 text-center">
+                        <h2>Create User</h2>
+                      </div>
+                    </div>
+                      <div class=" row_marl admin_user_create">
+                        <div class="col-md-5 m-auto ">
+                          <div class="create_user">
+                        
+                         <apex:pageMessages ></apex:pageMessages> 
+                          <div class="col-md-12 m-auto">
+                         
+                          <label><h style="color:red;">*</h> User Name </label>
+                          <apex:inputText value="{!User_management.Name__c}" required="true" id="Username" styleClass="slds-input"/>
+
+                            <!--<input type="" name="" class="slds-input"></input>-->
+                          </div>
+                          <div class="col-md-12 m-auto">
+                          <label><h style="color:red;">*</h> Email id </label>
+                          <apex:inputText value="{!User_management.Email_id__c}" required="true" id="Emailid" styleClass="slds-input"/>
+
+                            <!--<input type="" name="" class="slds-input"></input>-->
+                          </div>
+                          <div class="col-md-12 m-auto">
+                          <label><h style="color:red;">*</h> Mobile Number </label>
+                          <apex:inputText value="{!User_management.Phone_number__c}" required="true"  id="mobilenumber" styleClass="slds-input"/>
+
+                            <!--<input type="" name="" class="slds-input"></input>-->
+                          </div>
+                        <div class="col-md-12 m-auto">
+                          <label>Permissions </label>
+                          
+
+                           <select class="slds-input multiple" multiple="multiple">
+                            <option>Catalogue Management </option>
+                            <option>Product Management</option>
+                            <option>Customer Management</option>
+                            <option>Order management</option>
+                            <option>Reports</option>
+                            <option>Invoices</option>
+                          </select>
+                          </div>
+                          <div class="col-md-12">
+                          <div class="row no-gutters">
+                          <div class="col-md-6 m-auto slds-input_select">
+                          <label>Country </label>
+                          <apex:inputField value="{!User_management.Country__c}" id="country" styleClass="slds-input"/>
+
+
+                           <!--<select class="slds-input">
+                                 <option> Country </option>
+                                 <option>Nellore</option>
+                                 <option>tirupathi</option>
+                             </select>-->
+                          </div>
+                          <div class="col-md-6 m-auto">
+                          <label>State </label>
+                          <apex:inputField value="{!User_management.State1__c}" id="state" styleClass="slds-input"/>
+                          
+                          <!-- <select class="slds-input">
+                                 <option> State </option>
+                                 <option>Nellore</option>
+                                 <option>tirupathi</option>
+                             </select>-->
+                          </div>
+                        </div>
+                      </div>
+                           <div class="col-md-12 m-auto text-center">
+                           <!--<button class="save">Save</button>-->
+                          <apex:commandButton action="{!submituser}"    style="background: #fe763a !important;
+    color: #fff !important;
+    margin-left: 20px!important;
+    margin-bottom: 10px!important;
+    border-radius: 4px;
+    border: 1px solid #fe763a;
+    padding: 3px 15px !important;cursor:pointer; }" styleClass="slds-button slds-button_brand" oncomplete="redirectpage()" value="save" id="submit"  />
+
+                           
+                          <apex:commandButton value="Cancel" style="background: #fe763a !important;
+    color: #fff !important;
+    margin-left: 20px!important;
+    margin-bottom: 10px!important;
+    border-radius: 4px;
+    border: 1px solid #fe763a;
+    padding: 3px 15px !important;cursor:pointer; }" styleClass="slds-button slds-button_brand" action="{!DoCancel}"  immediate="true"  html-formnovalidate="formnovalidate" />   
+                           
+                          </div>
+                        
+                      
+                         </div>
+                         
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+            </div>
+      </div>
+     
+    </body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script type="text/javascript">
+     $(".multiple").select2({
+    tags: true,
+    tokenSeparators: [',', ' ']
+})
+    </script>
+  </html>
+ </apex:form>
+ 
+</apex:page>
